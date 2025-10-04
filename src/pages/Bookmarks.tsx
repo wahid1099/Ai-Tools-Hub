@@ -25,14 +25,6 @@ const Bookmarks = () => {
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-    fetchBookmarkedTools();
-  }, [user, navigate, fetchBookmarkedTools]);
-
   const fetchBookmarkedTools = async () => {
     if (!user) return;
 
@@ -49,7 +41,7 @@ const Bookmarks = () => {
     if (error) {
       console.error("Error fetching bookmarks:", error);
     } else {
-      setTools(data?.map((b: any) => b.tools).filter(Boolean) || []);
+      setTools(data?.map((b: unknown) => b.tools).filter(Boolean) || []);
     }
     setLoading(false);
   };
@@ -70,6 +62,14 @@ const Bookmarks = () => {
       setTools(tools.filter((tool) => tool.id !== toolId));
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    fetchBookmarkedTools();
+  }, [user, navigate]);
 
   return (
     <div className="min-h-screen bg-background">

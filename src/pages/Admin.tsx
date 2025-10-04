@@ -81,38 +81,6 @@ const Admin = () => {
     logo_url: "",
   });
 
-  useEffect(() => {
-    checkAuth();
-  }, [isAdmin, adminLoading]);
-
-  useEffect(() => {
-    if (isAdmin) {
-      fetchTools();
-    }
-  }, [isAdmin]);
-
-  useEffect(() => {
-    filterTools();
-  }, [tools, searchQuery, categoryFilter, filterTools]);
-
-  const filterTools = () => {
-    let filtered = tools;
-
-    if (searchQuery) {
-      filtered = filtered.filter(
-        (tool) =>
-          tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          tool.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    if (categoryFilter !== "all") {
-      filtered = filtered.filter((tool) => tool.category === categoryFilter);
-    }
-
-    setFilteredTools(filtered);
-  };
-
   const checkAuth = async () => {
     if (adminLoading) return;
 
@@ -145,6 +113,34 @@ const Admin = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    checkAuth();
+  }, [isAdmin, adminLoading, checkAuth]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchTools();
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
+    let filtered = tools;
+
+    if (searchQuery) {
+      filtered = filtered.filter(
+        (tool) =>
+          tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          tool.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (categoryFilter !== "all") {
+      filtered = filtered.filter((tool) => tool.category === categoryFilter);
+    }
+
+    setFilteredTools(filtered);
+  }, [tools, searchQuery, categoryFilter]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
