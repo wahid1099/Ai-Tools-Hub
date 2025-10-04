@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Star, ArrowUp, Sparkles, Heart } from "lucide-react";
+import { ExternalLink, Star, Sparkles, Heart } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
 interface ToolCardProps {
@@ -117,23 +116,16 @@ export const ToolCard = ({
                 )}
               </div>
 
-              <Button
-                asChild
-                size="sm"
-                variant="ghost"
-                className="opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary/10 hover:text-primary"
-                onClick={(e: unknown) => e.stopPropagation()}
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="opacity-0 group-hover:opacity-100 transition-all duration-300 inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 z-10 relative"
               >
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2"
-                >
-                  <span className="text-xs font-medium">Visit</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </Button>
+                <span>Visit</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
           </div>
         </Link>
